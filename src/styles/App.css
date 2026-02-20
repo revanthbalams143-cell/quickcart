@@ -19,3 +19,22 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
+
+.category-title {
+  margin-bottom: 16px;
+}
+
+.empty-category {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.back-home-link {
+  display: inline-block;
+  margin-top: 12px;
+  text-decoration: none;
+  color: #667eea;
+  font-weight: 600;
+}

@@ -1,19 +1,17 @@
 import React from 'react';
+import { useCart } from '../context/CartContext';
 import '../styles/CartSidebar.css';
 
-function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) {
-  // Calculate total price
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  };
+function CartSidebar() {
+  const { isCartOpen, toggleCart, cart, updateQuantity, removeFromCart, getTotalPrice } = useCart();
 
   return (
-    <div className={`cart-sidebar ${isOpen ? 'open' : ''}`}>
+    <div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
       
       {/* Header */}
       <div className="cart-header">
         <h2>Your Cart</h2>
-        <button onClick={onClose} className="close-btn">✕</button>
+        <button onClick={toggleCart} className="close-btn">✕</button>
       </div>
 
       {/* Cart Items */}
@@ -33,14 +31,14 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
               <div className="cart-item-quantity">
                 <button 
                   className="quantity-btn"
-                  onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
                 >
                   −
                 </button>
                 <span className="quantity-display">{item.quantity}</span>
                 <button 
                   className="quantity-btn"
-                  onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
                 >
                   +
                 </button>
@@ -48,7 +46,7 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
               
               <button 
                 className="remove-btn"
-                onClick={() => onRemoveItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
                 aria-label="Remove item"
               >
                 ✕
@@ -63,7 +61,7 @@ function CartSidebar({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) 
         <div className="cart-footer">
           <div className="cart-total">
             <span>Total:</span>
-            <span>${calculateTotal().toFixed(2)}</span>
+            <span>${getTotalPrice().toFixed(2)}</span>
           </div>
         </div>
       )}
